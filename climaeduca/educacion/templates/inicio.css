@@ -1,0 +1,113 @@
+      
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #c9ff8c;
+      overflow: hidden;
+    }
+
+    header {
+      background-color: #3b9362;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #0ebd68;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 550;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #205e3c;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 1rem;
+      }
+
+      .brand-name {
+        font-size: 1rem;
+      }
+
+      .logo {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+    }
+ .ranking {
+  position: fixed; 
+  top: 120px;        /* Ajusta según la altura del header */
+  left: 40px;        /* Lo acerca al borde izquierdo */
+  /* transform: translateX(-50%);  /* Lo comentamos para que no se centre */
+  width: 300px;     
+  height: 450px;    
+  background-color: #f2f2f2;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-align: center;
+}
+.info {
+  position: fixed; 
+  top: 120px;        /* Ajusta según la altura del header */
+  right: 40px;        /* Lo acerca al borde izquierdo */
+  /* transform: translateX(-50%);  /* Lo comentamos para que no se centre */
+  width: 300px;     
+  height: 450px;    
+  background-color: #f2f2f2;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-align: center;
+}
