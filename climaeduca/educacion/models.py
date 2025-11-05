@@ -19,4 +19,3 @@ class RespuestaUsuario(models.Model):
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE)
     respuesta_dada = models.CharField(max_length=1)
     es_correcta = models.BooleanField()
-

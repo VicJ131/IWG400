@@ -1,29 +1,20 @@
 from django.http import HttpResponse
-from .firebase_config import db
 from django.shortcuts import render, redirect
 from .forms import RegistroForm
-import firebase_admin
-from firebase_admin import auth
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
-def prueba(request):
-    return render(request, "prueba.html")
-
-def registro_user(request):
+def registro_usuario(request):
     if request.method == 'POST':
         form = RegistroForm(request.POST)
         if form.is_valid():
-            nombre = form.cleaned_data['nombre_usuario']
-            correo = form.cleaned_data['correo']
-            contraseña = form.cleaned_data['contraseña']
-            try:
-                user = auth.create_user(
-                    email = correo,
-                    password = contraseña,
-                    display_name = nombre
-                )
-                return redirect('registro_exitoso')
-            except Exception as e:
-                return render(request,'registro.html',{'form':form,'error': str(e)})
-    else:
+            user = form.save()
+            login(request, user)
+            return redirect('inicio')
+    else: 
         form = RegistroForm()
-    return render(request,'registro.html', {'form': form})
+    return render(request, 'registro.html', {'form': form})
+
+@login_required
+def inicio(request):
+    return render(request, 'inicio.html')
