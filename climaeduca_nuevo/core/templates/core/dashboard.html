@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ClimaEduca</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .dashboard-card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .dashboard-card:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'core:dashboard' %}">🌍 ClimaEduca</a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text me-3">
+                    <strong>{{ user.username }}</strong> | 
+                    Puntos: {{ user.puntaje_total }} | 
+                    Racha: {{ user.racha_actual }} días
+                </span>
+                <a class="nav-link" href="{% url 'core:ranking' %}">🏆 Ranking</a>
+                <a class="nav-link" href="{% url 'accounts:logout' %}">🚪 Salir</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Estadísticas principales -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card dashboard-card text-center bg-primary text-white">
+                    <div class="card-body">
+                        <div class="feature-icon">🏆</div>
+                        <h3>{{ user.puntaje_total }}</h3>
+                        <p class="mb-0">Puntos Totales</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card dashboard-card text-center bg-success text-white">
+                    <div class="card-body">
+                        <div class="feature-icon">📅</div>
+                        <h3>{{ user.racha_actual }}</h3>
+                        <p class="mb-0">Días de Racha</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card dashboard-card text-center bg-warning text-white">
+                    <div class="card-body">
+                        <div class="feature-icon">#️⃣</div>
+                        <h3>{{ posicion_ranking }}</h3>
+                        <p class="mb-0">Posición Ranking</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card dashboard-card text-center bg-info text-white">
+                    <div class="card-body">
+                        <div class="feature-icon">🏠</div>
+                        <h5>{{ user.comuna|default:"-" }}</h5>
+                        <p class="mb-0">Tu Comuna</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acciones principales -->
+        <div class="row">
+            <div class="col-md-8 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">🚀 Acciones Rápidas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="feature-icon">🎯</div>
+                                        <h5>Quiz Diario</h5>
+                                        <p>Responde las preguntas de hoy y gana puntos</p>
+                                        <a href="{% url 'quizzes:quiz_diario' %}" class="btn btn-success">Comenzar Quiz</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="feature-icon">🏆</div>
+                                        <h5>Ver Ranking</h5>
+                                        <p>Consulta tu posición en el ranking global</p>
+                                        <a href="{% url 'core:ranking' %}" class="btn btn-warning">Ver Ranking</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top 5 Ranking -->
+            <div class="col-md-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">🏅 Top 5 Jugadores</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for usuario in top_usuarios %}
+                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 {% if usuario == user %}bg-light{% endif %}">
+                            <div>
+                                <strong>
+                                    {% if forloop.counter == 1 %}🥇
+                                    {% elif forloop.counter == 2 %}🥈
+                                    {% elif forloop.counter == 3 %}🥉
+                                    {% else %}#{{ forloop.counter }}{% endif %}
+                                </strong>
+                                {{ usuario.username }}
+                                {% if usuario == user %}<small>(Tú)</small>{% endif %}
+                            </div>
+                            <span class="badge bg-success">{{ usuario.puntaje_total }} pts</span>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted text-center">No hay jugadores aún</p>
+                        {% endfor %}
+                        
+                        <div class="text-center mt-3">
+                            <a href="{% url 'core:ranking' %}" class="btn btn-outline-primary btn-sm">
+                                Ver ranking completo →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

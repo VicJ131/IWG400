@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responder Quizzes</title>
+  <link rel="stylesheet" href="quizzes.css">
+</head>
+<body>
+  <div class="quiz-page">
+
+    <!-- Panel izquierdo -->
+    <aside class="sidebar">
+      <h2>Completados</h2>
+      <ul id="answered-list">
+        <li>Quiz 1</li>
+        <li>Quiz 2</li>
+        <li>Quiz 3</li>
+      </ul>
+    </aside>
+
+    <!-- Área principal -->
+    <main class="quiz-area">
+      <h2 id="quiz-title">Pregunta 1</h2>
+      <p id="quiz-question">¿Cual de las siguientes acciones contribuye mas a reducir la contaminacion del aire?</p>
+
+      <div class="options">
+        <label><input type="radio" name="answer"> Usar mas el automovil para ahorrar tiempo.</label>
+        <label><input type="radio" name="answer"> Plantar arboles y usar transporte publico.</label>
+        <label><input type="radio" name="answer"> Dejar los aparatos encendidos todo el dia.</label>
+        <label><input type="radio" name="answer"> Quemar basura.</label>
+      </div>
+
+      <button id="next-btn">Siguiente</button>
+    </main>
+  </div>
+</body>
+</html>
